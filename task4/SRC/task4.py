@@ -12,18 +12,12 @@ temporary_list = [r for read in reader for r in read.split()]
 filtered_list = [lis.replace(':', '') for lis in temporary_list]
 sorted_list = [int(sort) for sort in filtered_list]
 
-
 hours = [hour for hour in range(800, 2100, 100)]
 divided_hours = [[], [], [], [], [], [], [], [], [], [], [], []]
 for numb in range(12):
     for element in sorted_list:
         if hours[numb + 1] > element > hours[numb]-1:
             divided_hours[numb].append(element)
-
-
-visitor_hourly = [len(items) for items in divided_hours]
-index_of_max = visitor_hourly.index(max(visitor_hourly))
-list_copy = sorted(divided_hours[index_of_max]).copy()  # Fix me
 
 
 def final(tmp_list):
@@ -44,4 +38,23 @@ def final(tmp_list):
     return tmp[0]+' '+tmp[-1]
 
 
-print(final(list_copy), '\n')
+def two_max_indexes(tmp_list: list):
+    '''
+
+    when sequence is important!
+    find max element index in list and return tuple of one index
+    if two max elements in list return tuple of both indexes
+    :param tmp_list: list
+    :return: tuple
+    '''
+    first_max_index = tmp_list.index(max(tmp_list))
+    second_max_index = first_max_index + tmp_list[first_max_index + 1:].index(max(tmp_list[first_max_index + 1:])) + 1
+    if tmp_list[first_max_index] == tmp_list[second_max_index]:
+        return first_max_index, second_max_index
+    return first_max_index,
+
+
+visitor_hourly = [len(items) for items in divided_hours]    # +++++++++
+for indexes in two_max_indexes(visitor_hourly):
+    list_copy = sorted(divided_hours[indexes]).copy()  # Fix me
+    print(final(list_copy), '\n')
