@@ -38,23 +38,21 @@ def final(tmp_list):
     return tmp[0]+' '+tmp[-1]
 
 
-def two_max_indexes(tmp_list: list):
+def all_max_indexes(tmp_list):
     '''
 
-    when sequence is important!
-    find max element index in list and return tuple of one index
-    if two max elements in list return tuple of both indexes
     :param tmp_list: list
-    :return: tuple
+    :return: list of indexes of all max elements
     '''
-    first_max_index = tmp_list.index(max(tmp_list))
-    second_max_index = first_max_index + tmp_list[first_max_index + 1:].index(max(tmp_list[first_max_index + 1:])) + 1
-    if tmp_list[first_max_index] == tmp_list[second_max_index]:
-        return first_max_index, second_max_index
-    return first_max_index,
+    b = []
+    max_num = max(tmp_list)
+    for index, value in enumerate(tmp_list):
+        if value == max_num:
+            b.append(index)
+    return b
 
 
 visitor_hourly = [len(items) for items in divided_hours]    # +++++++++
-for indexes in two_max_indexes(visitor_hourly):
+for indexes in all_max_indexes(visitor_hourly):
     list_copy = sorted(divided_hours[indexes]).copy()  # Fix me
     print(final(list_copy), '\n')
